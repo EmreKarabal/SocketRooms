@@ -5,6 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const connectDB = require('./db');
 const { Message, Room, User } = require('./models');
+const debug = require('debug')('socket.io:server');
 
 // MongoDB bağlantısını başlat
 connectDB();
@@ -12,13 +13,13 @@ connectDB();
 // Express uygulamasını oluşturalım
 const app = express();
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 // HTTP server ve Socket.io yapılandırması
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "*",
+    origin: "http://localhost:4200",
     methods: ["GET", "POST"]
   }
 });
@@ -28,7 +29,7 @@ const activeUsers = {};
 
 // Socket bağlantısı
 io.on('connection', async (socket) => {
-  console.log('Yeni kullanıcı bağlandı:', socket.id);
+  debug('Yeni kullanıcı bağlandı:', socket.id);
   
   // Kullanıcı kaydı
   socket.on('register', async (username) => {
@@ -36,6 +37,7 @@ io.on('connection', async (socket) => {
       // Kullanıcı adı kontrolü
       if (Object.values(activeUsers).includes(username)) {
         socket.emit('register_error', 'Bu kullanıcı adı zaten aktif olarak kullanılıyor');
+        socket.disconnect();
         return;
       }
       
@@ -247,10 +249,6 @@ io.on('connection', async (socket) => {
   });
 });
 
-// Ana route
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 // Sunucuyu başlat
 const PORT = process.env.PORT || 3000;

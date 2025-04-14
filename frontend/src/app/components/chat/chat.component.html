@@ -1,0 +1,18 @@
+<!-- src/app/chat/chat.component.html -->
+<div class="chat-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-info">
+          <div class="user-avatar">{{ currentUser?.charAt(0) }}</div>
+          <div class="user-name">{{ currentUser }}</div>
+        </div>
+        <button class="btn btn-sm btn-outline-danger" (click)="logout()">Çıkış</button>
+      </div>
+      
+      <app-user-list></app-user-list>
+    </div>
+    
+    <div class="main-content">
+      <app-chat-area></app-chat-area>
+    </div>
+  </div>

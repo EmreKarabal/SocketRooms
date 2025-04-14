@@ -1,0 +1,23 @@
+<!-- src/app/user-list/user-list.component.html -->
+<div class="user-list">
+    <h5 class="user-list-header">Kullanıcılar</h5>
+    
+    <div class="user-search mb-3">
+      <input type="text" class="form-control" placeholder="Kullanıcı ara...">
+    </div>
+    
+    <div class="user-items">
+      <div *ngFor="let user of users" 
+           class="user-item" 
+           [class.active]="selectedUser === user"
+           (click)="selectUser(user)">
+        <div class="user-avatar">{{ user.charAt(0).toUpperCase() }}</div>
+        <div class="user-name">{{ user }}</div>
+        <div *ngIf="getRoomWithUser(user)" class="user-indicator"></div>
+      </div>
+      
+      <div *ngIf="users.length === 0" class="text-center text-muted p-3">
+        Henüz kullanıcı yok
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,23 @@
+<!-- src/app/login/login.component.html -->
+<div class="login-container">
+    <div class="login-box">
+      <h2 class="text-center mb-4">Chat Uygulaması</h2>
+      
+      <div class="mb-3">
+        <label for="username" class="form-label">Kullanıcı Adı</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="username" 
+          [(ngModel)]="username" 
+          placeholder="Kullanıcı adınızı girin"
+          (keyup.enter)="onLogin()">
+        
+        <div *ngIf="errorMessage" class="text-danger mt-2">
+          {{ errorMessage }}
+        </div>
+      </div>
+      
+      <button class="btn btn-primary w-100" (click)="onLogin()">Giriş Yap</button>
+    </div>
+  </div>
