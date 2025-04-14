@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Uygulaması</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="container-fluid" id="login-container">
+    <div class="row justify-content-center vh-100 align-items-center">
+      <div class="col-md-4">
+        <div class="card shadow">
+          <div class="card-body p-5">
+            <h2 class="text-center mb-4">Chat Uygulaması</h2>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="username-input" placeholder="Kullanıcı adı girin">
+            </div>
+            <button class="btn btn-primary w-100" id="login-button">Giriş Yap</button>
+            <p id="login-error" class="text-danger mt-3"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Screen -->
+  <div class="container-fluid p-0 vh-100 d-none" id="chat-container">
+    <div class="row g-0 h-100">
+      <!-- Sidebar - Users List -->
+      <div class="col-md-3 col-lg-3 border-end h-100 d-flex flex-column bg-light">
+        <div class="p-3 bg-primary text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-comments me-2"></i>
+            <span id="current-user"></span>
+          </h5>
+        </div>
+        
+        <!-- Search -->
+        <div class="p-3 border-bottom">
+          <div class="input-group">
+            <span class="input-group-text bg-light border-0">
+              <i class="fas fa-search text-muted"></i>
+            </span>
+            <input type="text" class="form-control border-0 bg-light" placeholder="Kullanıcı ara..." id="user-search">
+          </div>
+        </div>
+        
+        <!-- Combined Users & Chats List -->
+        <div class="overflow-auto flex-grow-1 p-2">
+          <div class="list-group list-group-flush" id="users-list">
+            <!-- Users and chats will be populated here -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Chat Area -->
+      <div class="col-md-9 col-lg-9 h-100 d-flex flex-column">
+        <!-- Welcome Screen -->
+        <div id="welcome-message" class="h-100 d-flex flex-column justify-content-center align-items-center text-center p-5">
+          <div class="mb-4">
+            <i class="fas fa-comments fa-4x text-primary mb-3"></i>
+            <h4>Chat Uygulamasına Hoş Geldiniz!</h4>
+            <p class="text-muted">Sohbete başlamak için sol taraftan bir kullanıcı seçin.</p>
+          </div>
+        </div>
+        
+        <!-- Active Chat -->
+        <div id="chat-screen" class="h-100 d-none d-flex flex-column">
+          <!-- Chat Header -->
+          <div class="p-3 border-bottom d-flex align-items-center">
+            <div class="chat-avatar me-3">
+              <div class="avatar-circle">
+                <span class="avatar-initials" id="chat-with-initials"></span>
+              </div>
+            </div>
+            <div>
+              <h6 class="mb-0" id="chat-with"></h6>
+              <small class="text-muted" id="chat-status">Çevrimiçi</small>
+            </div>
+            <div class="ms-auto">
+              <button class="btn btn-sm btn-light rounded-circle me-2">
+                <i class="fas fa-phone"></i>
+              </button>
+              <button class="btn btn-sm btn-light rounded-circle me-2">
+                <i class="fas fa-video"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Messages Area -->
+          <div class="flex-grow-1 overflow-auto p-3" id="messages">
+            <!-- Messages will be populated here -->
+          </div>
+          
+          <!-- Message Input -->
+          <div class="border-top p-3">
+            <div class="input-group">
+              <button class="btn btn-light border">
+                <i class="far fa-smile"></i>
+              </button>
+              <input type="text" class="form-control border" id="message-input" placeholder="Mesajınızı yazın...">
+              <button class="btn btn-primary" id="send-button">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
