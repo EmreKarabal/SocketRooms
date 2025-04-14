@@ -18,7 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const messagesContainer = document.getElementById('messages');
   const messageInput = document.getElementById('message-input');
   const sendButton = document.getElementById('send-button');
-  
+  const emojiButton = document.getElementById('emoji-button');
+  const emojiPickerContainer = document.getElementById('emoji-picker-container');
+
   // Uygulama durumu
   let currentUser = null;
   let currentRoom = null;
@@ -45,7 +47,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchText = e.target.value.toLowerCase();
     filterUsers(searchText);
   });
+
+  emojiButton.addEventListener('click', () => {
+    emojiPickerContainer.classList.toggle('d-none');
+  });
   
+  document.querySelector('emoji-picker')?.addEventListener('emoji-click', event => {
+    const emoji = event.detail.unicode;
+
+    messageInput.value += emoji;
+    messageInput.focus();
+
+    emojiPickerContainer.classList.add('d-none');
+  });
+
+  document.addEventListener('click', (e) => {
+    if(!emojiButton.contains(e.target) && !emojiPickerContainer.contains(e.target)){
+      emojiPickerContainer.classList.add('d-none');
+    }
+  })
+
   function filterUsers(searchText) {
     const userItems = usersList.querySelectorAll('.list-group-item');
     userItems.forEach(item => {
